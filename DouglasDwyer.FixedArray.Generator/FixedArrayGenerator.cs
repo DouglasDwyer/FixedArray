@@ -167,7 +167,9 @@ public class FixedArrayGenerator : IIncrementalGenerator
     private static void AppendBuilder(StringBuilder sb)
     {
         sb.AppendLine("    /// <summary>Provides collection expression support for fixed-size array types.</summary>");
-        sb.AppendLine("    internal static class FixedArrayBuilder");
+        sb.AppendLine("    /// <exclude/>");
+        sb.AppendLine("    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]");
+        sb.AppendLine("    public static class FixedArrayBuilder");
         sb.AppendLine("    {");
 
         for (var n = 1; n <= 32; n++)
@@ -179,6 +181,7 @@ public class FixedArrayGenerator : IIncrementalGenerator
             sb.AppendLine($"        /// <exception cref=\"System.ArgumentOutOfRangeException\">");
             sb.AppendLine($"        /// Thrown when <paramref name=\"items\"/> does not contain exactly {n} element{s}.");
             sb.AppendLine($"        /// </exception>");
+            sb.AppendLine("         [MethodImpl(MethodImplOptions.AggressiveInlining)]");
             sb.AppendLine($"        public static Array{n}<T> Create{n}<T>(ReadOnlySpan<T> items)");
             sb.AppendLine("        {");
             sb.AppendLine($"            if (items.Length != {n}) throw new System.ArgumentOutOfRangeException(nameof(items), \"Expected exactly {n} element{s}.\");");
