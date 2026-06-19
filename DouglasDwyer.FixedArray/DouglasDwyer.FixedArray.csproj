@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+	  <PackageId>DouglasDwyer.FixedArray</PackageId>
+	  <RootNamespace>DouglasDwyer.FixedArray</RootNamespace>
+	  <AssemblyName>DouglasDwyer.FixedArray</AssemblyName>
+	  <Authors>Douglas Dwyer</Authors>
+	  <Company>Douglas Dwyer</Company>
+	  <Product>FixedArray</Product>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Description>Inline array types for C#</Description>
+	  <PackageProjectUrl>https://github.com/DouglasDwyer/FixedArray</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/DouglasDwyer/FixedArray</RepositoryUrl>
+	  <RepositoryType>GitHub</RepositoryType>
+	  <NeutralLanguage>en</NeutralLanguage>
+	  <AssemblyVersion>$(Version)</AssemblyVersion>
+	  <FileVersion>$(Version)</FileVersion>
+	  <Version>0.1.0</Version>
+	  <PackageReleaseNotes></PackageReleaseNotes>
+	  <PackageTags>array;fixed-size;inline-array;stack-allocated;performance</PackageTags>
+	  <WarningsAsErrors>Nullable</WarningsAsErrors>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DouglasDwyer.FixedArray.Generator\DouglasDwyer.FixedArray.Generator.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>

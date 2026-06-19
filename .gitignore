@@ -1,0 +1,10 @@
+.claude/
+.DS_Store
+.vs/
+docs/_site/
+docs/api/
+docs/.cache/
+bin/
+obj/
+TestProject/
+TestResults/

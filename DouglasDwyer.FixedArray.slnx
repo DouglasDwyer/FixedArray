@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DouglasDwyer.FixedArray\DouglasDwyer.FixedArray.csproj" />
+  <Project Path="DouglasDwyer.FixedArray.Generator\DouglasDwyer.FixedArray.Generator.csproj" />
+</Solution>
