@@ -71,7 +71,7 @@ public class FixedArrayGenerator : IIncrementalGenerator
         sb.AppendLine("    {");
 
         sb.AppendLine("        /// <summary>The number of elements in the array.</summary>");
-        sb.AppendLine($"        public int Length => {n};");
+        sb.AppendLine($"        public int Length {{ [MethodImpl(MethodImplOptions.AggressiveInlining)] get => {n}; }}");
         sb.AppendLine();
         sb.AppendLine("        private T _element0;");
         sb.AppendLine();
@@ -81,6 +81,7 @@ public class FixedArrayGenerator : IIncrementalGenerator
         sb.AppendLine($"        /// <summary>Initializes an <see cref=\"Array{n}{{T}}\"/> with the given elements.</summary>");
         for (var i = 0; i < n; i++)
             sb.AppendLine($"        /// <param name=\"e{i}\">The <c>{i}</c>-index element.</param>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine($"        public Array{n}({paramDecls})");
         sb.AppendLine("        {");
         sb.AppendLine("            _element0 = e0;");
@@ -91,21 +92,26 @@ public class FixedArrayGenerator : IIncrementalGenerator
 
         // IEnumerable / IFixedArray
         sb.AppendLine($"        /// <inheritdoc cref=\"IEnumerable.GetEnumerator\"/>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine($"        public FixedArrayEnumerator<T, Array{n}<T>> GetEnumerator() => new FixedArrayEnumerator<T, Array{n}<T>>(this);");
         sb.AppendLine("        /// <inheritdoc/>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine("        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();");
         sb.AppendLine("        /// <inheritdoc/>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine("        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();");
         sb.AppendLine("        /// <inheritdoc/>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine("        T IFixedArray<T>.Get(int i) => this[i];");
         sb.AppendLine("        /// <inheritdoc/>");
-        sb.AppendLine("        T IReadOnlyList<T>.this[int i] => this[i];");
+        sb.AppendLine("        T IReadOnlyList<T>.this[int i] { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => this[i]; }");
         sb.AppendLine("        /// <inheritdoc/>");
-        sb.AppendLine("        int IReadOnlyCollection<T>.Count => Length;");
+        sb.AppendLine("        int IReadOnlyCollection<T>.Count { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => Length; }");
         sb.AppendLine();
 
         // Equals
         sb.AppendLine("        /// <inheritdoc/>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine("        public override bool Equals([NotNullWhen(true)] object? obj)");
         sb.AppendLine("        {");
         sb.AppendLine($"            if (obj is Array{n}<T> rhs) return this == rhs;");
@@ -113,11 +119,13 @@ public class FixedArrayGenerator : IIncrementalGenerator
         sb.AppendLine("        }");
         sb.AppendLine();
         sb.AppendLine("        /// <inheritdoc/>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine($"        public bool Equals(Array{n}<T> other) => this == other;");
         sb.AppendLine();
 
         // GetHashCode
         sb.AppendLine("        /// <inheritdoc/>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine("        public override int GetHashCode()");
         sb.AppendLine("        {");
         sb.AppendLine("            var hash = new System.HashCode();");
@@ -130,6 +138,7 @@ public class FixedArrayGenerator : IIncrementalGenerator
         sb.AppendLine("        /// <summary>");
         sb.AppendLine("        /// Compares two arrays element-by-element for equality.");
         sb.AppendLine("        /// </summary>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine($"        public static bool operator ==(Array{n}<T> lhs, Array{n}<T> rhs)");
         sb.AppendLine("        {");
         sb.AppendLine($"            for (var i = 0; i < {n}; i++)");
@@ -142,6 +151,7 @@ public class FixedArrayGenerator : IIncrementalGenerator
         sb.AppendLine("        /// <summary>");
         sb.AppendLine("        /// Compares two arrays element-by-element for inequality.");
         sb.AppendLine("        /// </summary>");
+        sb.AppendLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
         sb.AppendLine($"        public static bool operator !=(Array{n}<T> lhs, Array{n}<T> rhs) => !(lhs == rhs);");
 
         sb.AppendLine("    }");
